@@ -1,11 +1,9 @@
 Meteor.methods({
 
   pickCharacter: function(character_id) {
-    if(!Meteor.userId()) {
+    if( !Meteor.userId() ) {
       throw new Meteor.Error(403, "Must be logged in to play");
-      return;
     } 
-
     if ( character_id ) {
       character = Characters.findOne( character_id );
       if ( (character.owner_id == Meteor.userId() ) ) {
@@ -13,15 +11,16 @@ Meteor.methods({
           throw new Meteor.Error(403, "The Character is already logged in");
         } else {
           Characters.update( {_id: character_id}, { $set: { loggedIn: true } } );
+          Users.update( {_id: Meteor.userId() }, { $set: { current_character: character_id } } );
         }
       } else {
         throw new Meteor.Error(403, 'Cannot select a character that does not belong to you');
       } 
     } else {
-      characterTemplate = Gamezar.Models[Gamezar.Models.NEW_CHARACTER]
-      
+      characterTemplate = Gamezar.Models.new("character");
+      var char_id = Characters.insert( characterTemplate );
+      Users.update( {_id: Meteor.userId(), { $set: { current_character: char_id } } } );
     }
-
   },
 
   subscribeToMap: function() {

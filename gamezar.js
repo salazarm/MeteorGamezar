@@ -1,17 +1,13 @@
-var Gamezar = (function() {
-
+var Gamezar =  new (function() {
   models = {}
   animations = {}
   events = {}
-
-  if ( !(this instanceof Gamezar) ) {
-    return new Gamezar();
-  }
 
   this.Models = {}
   this.Animations = {}
   this.Events = {}
   this.newModel = {}
+  this.interfaces = {}
 
   this.Models.add = function(type, name, model) {
     if ( !models[type] ) {
@@ -25,6 +21,14 @@ var Gamezar = (function() {
 
   this.Models.get = function(type, name) {
     return models[type][name];
+  }
+
+  this.Models.setInterface = function(type, interface) {
+    this.interfaces[type] = interface;
+  }
+
+  this.Models.instantiate = function(type, document) {
+    return this.interfaces[type](document);
   }
 
   this.Animations.add = function(name, object) {
@@ -56,5 +60,4 @@ var Gamezar = (function() {
   }
 
   return this;
-
 })();

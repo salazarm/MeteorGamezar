@@ -11,23 +11,24 @@ if (Meteor.isServer) {
 
 
 Meteor.autorun(function() {
-  if ( Meteor.userId() && !Session.get('character') ) {
-    Meteor.call("pickCharacter", function(err, res){
-      if (err) {
-        console.log(err);
-      } else {
-        Session.set('character', res);
-      }
-    });
-  } else
-  if ( Meteor.userId() && Session.get('character') ) {
-    if( Characters.findOne( Session.get('character')._id )['loggedIn'] ) {
-      console.log('Character already being played');
-      alert('This character is already logged in');
+  if  ( Meteor.userId() ) {
+    user = Users.findOne({_id: Meteor.userId() });
+    if ( !user['current_character'] ) {
+      Meteor.call("pickCharacter", function(err, res){
+        if (err) {
+          console.log(err);
+        } else {
+          Session.set('character', res);
+        }
+      });
     } else {
-      Meteor.call('subscripeToMap');
+      if( Characters.findOne( user['current_character'] )['loggedIn'] ) {
+        console.log('Character already being played');
+        alert('This character is already logged in');
+      } else {
+        Meteor.call('subscripeToMap');
+      }
     }
   }
-
 });
 
