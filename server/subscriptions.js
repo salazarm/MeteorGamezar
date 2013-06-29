@@ -1,29 +1,49 @@
 Meteor.methods({
+  getSelf : function() {
+    return Users.findOne( Meteor.userId() );
+  },
 
-  pickCharacter: function(character_id) {
+  getCharacters : function() {
+    return Characters.find({ ownerId: Meteor.userId() }).fetch();
+  },
+
+  pickCharacter: function(selection) {
+    var character;
     if( !Meteor.userId() ) {
       throw new Meteor.Error(403, "Must be logged in to play");
     } 
-    if ( character_id ) {
-      character = Characters.findOne( character_id );
-      if ( (character.owner_id == Meteor.userId() ) ) {
+    if ( selection['characterId'] ) {
+      character = Characters.findOne( selection['characterId'] );
+      if ( ( character.ownerId == Meteor.userId() ) ) {
         if ( character.loggedIn ) {
           throw new Meteor.Error(403, "The Character is already logged in");
         } else {
-          Characters.update( {_id: character_id}, { $set: { loggedIn: true } } );
-          Users.update( {_id: Meteor.userId() }, { $set: { current_character: character_id } } );
+          Characters.update( {_id: characterId}, { $set: { loggedIn: true } } );
+          Users.update( {_id: Meteor.userId() }, { $set: { currentCharacter: characterId } } );
         }
       } else {
         throw new Meteor.Error(403, 'Cannot select a character that does not belong to you');
       } 
     } else {
-      characterTemplate = Gamezar.Models.new("character");
-      var char_id = Characters.insert( characterTemplate );
-      Users.update( {_id: Meteor.userId(), { $set: { current_character: char_id } } } );
+      if ( !selection['name'] ) {
+        throw new Meteor.Error(500, 'Must give a name for your new character');
+      } else {
+        characterTemplate = Gamezar.Models.new("character");
+        characterTemplate[ownerId] = Meteor.userId();
+        characterTemplate[name] = selection['name'];
+        var charId = Characters.insert( characterTemplate );
+        character = Characters.findOne(charId);
+        Users.update( {_id: Meteor.userId(), { $set: { currentCharacter: charId } } } );
+      }
+    }
+    map = Maps.findOne({ _id: character['currentMap'] });
+    return { 
+      'character' : character, 
+      'map' : map 
     }
   },
 
-  subscribeToMap: function() {
+  subscribeToMap: function(mapId) {
     if ( session.get('character') ) {
       Meteor.publish('currentMap', function() {
         var sub = this,
@@ -39,7 +59,7 @@ Meteor.methods({
           });
         }
 
-        characterHandle = Characters.find({_id: session.get('character')._id, owner_id: Meteor.userId() } ).observe({
+        characterHandle = Characters.find({_id: session.get('character')._id, ownerId: Meteor.userId() } ).observe({
           changed: function(collection, id, fields) {
             if ( fields['loggedIn'] ) {
               Meteor.call("characterLogout");
@@ -56,6 +76,16 @@ Meteor.methods({
       */ 
       throw new Meteor.Error(403, "Character must be selected to play!");
     }
-}
+  },
+
+  commitAction: function(action, params) {
+    user = Meteor.users.findOne(Meteor.userId());
+    character = Characters.findOne(user['currentCharacter']);
+    if (Actions[action]) {
+      return Actions[action](character, params);
+    } else {
+      throw new Meteor.Error(403, "Action unrecognized");
+    }
+  }
 
 });

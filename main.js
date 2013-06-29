@@ -1,34 +1,35 @@
 if (Meteor.isClient) {
+  Meteor.autorun(function() {
+    if  ( Meteor.userId() ) {
+      Meteor.call('getSelf', function(error, self) { 
+        if (error) {
+          Session.set('user', null);
+        }
 
-}
-
-
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-
+        /*
+          Do something with self;
+        */
+        if ( !user['currentCharacter'] ) {
+          Meteor.call('pickCharacter', function(err, character) {
+            if (err) {
+              console.log(err);
+            } else {
+              /*
+                Do something with character
+              */
+            }
+          });
+        }
+      });
+    }
   });
 }
 
 
-Meteor.autorun(function() {
-  if  ( Meteor.userId() ) {
-    user = Users.findOne({_id: Meteor.userId() });
-    if ( !user['current_character'] ) {
-      Meteor.call("pickCharacter", function(err, res){
-        if (err) {
-          console.log(err);
-        } else {
-          Session.set('character', res);
-        }
-      });
-    } else {
-      if( Characters.findOne( user['current_character'] )['loggedIn'] ) {
-        console.log('Character already being played');
-        alert('This character is already logged in');
-      } else {
-        Meteor.call('subscripeToMap');
-      }
-    }
-  }
-});
+if (Meteor.isServer) {
 
+  Meteor.startup(function () {
+
+  });
+
+}
