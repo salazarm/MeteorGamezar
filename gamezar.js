@@ -1,31 +1,60 @@
-if (Meteor.isClient) {
+var Gamezar = (function() {
 
-}
+  models = {}
+  animations = {}
+  events = {}
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-
-  if ( session.get('character') ) {
-    Meteor.publish('currentMap', function() {
-      var sub = this,
-        actionHandles = [],
-        mapHandles = []
-
-      function publishMap(map) {
-        var actions = Actions.find({mapID: map._id});
-        actionHandles = actions.observer({
-          added: function(id, action) {
-            sub.added('action', id, action);
-          }
-        });
-      }
-
-
-
-
-    });
-
+  if ( !(this instanceof Gamezar) ) {
+    return new Gamezar();
   }
 
-  });
-}
+  this.Models = {}
+  this.Animations = {}
+  this.Events = {}
+  this.newModel = {}
+
+  this.Models.add = function(type, name, model) {
+    if ( !models[type] ) {
+      models[type] = {}
+    }
+    if ( models[type][name] ) {
+      console.log("Warning: Gamezar model with name "+name+" will be overwritten");
+    }
+    models[type][name] = model;
+  }
+
+  this.Models.get = function(type, name) {
+    return models[type][name];
+  }
+
+  this.Animations.add = function(name, object) {
+    animations[name] = object;
+  }
+
+  this.Animations.get = function(name) {
+    return animations[name];
+  }
+
+  this.Events.add = function(name, object) {
+    events[name] = object;
+  }
+
+  this.Events.get = function(name) {
+    return events[name];
+  }
+
+  this.Models.setNewModel = function(type, name, real) {
+    if (real) {
+      this.newModel[type] = this.models[real][name];
+    } else { 
+      this.newModel[type] = this.Models[type][name];
+    }
+  }
+
+  this.Models.new = function(type) {
+    return this.newModel[type];
+  }
+
+  return this;
+
+})();
