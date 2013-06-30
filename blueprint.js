@@ -92,6 +92,26 @@ Maps['world'] = {
   	[ ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1' ] ],
   ]
 }
+Maps['nyanSpace'] = {
+  name: "Nyan Space",
+  tilesUrl: "/images/nyan_space.png",
+  tiles: {
+  },
+  actions: [],
+  portals: ['nyan2world'],
+  map: []
+}
+for (var i = 0; i < 67; i++) {
+  Maps['nyanSpace']['map'].push([]);
+  for (var j = 0; j < 120; j++) {
+    if ((i + j) % 7 === 0) {
+      Maps['nyanSpace']['map'][i].push(['nyanStar']);
+    }
+    else {
+      Maps['nyanSpace']['map'][i].push(['nyanEmpty']);
+    }
+  }
+}
 
 Portals['portal_1'] = {
 	active: true,
