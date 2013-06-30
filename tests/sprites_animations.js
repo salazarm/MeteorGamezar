@@ -3,13 +3,13 @@ Crafty.sprite("images/nyan.png", {
 });
 
 Crafty.e("2D, DOM, SpriteAnimation, nyan")
-    .animate('nyanIdle', 0, 0, 6) //setup animation
+    .animate('nyanIdle', 0, 0, 5) //setup animation
     .animate('nyanIdle', 30, -1) // start animation
 
-Crafty.sprite(16, "images/nyan_rainbow.png", {
+Crafty.sprite(16, "images/nyanRainbow.png", {
   'nyanRainbow': [0 ,0, 9, 19]
 });
 
 Crafty.e("2D, DOM, SpriteAnimation, nyanRainbow")
-    .animate('nyanRainbowWave', 0, 0, 6) //setup animation
-    .animate('nyanRainbowWave', 30, -1) // start animation
+    .animate('nyanRainbowWave', 0, 0, 1) //setup animation
+    .animate('nyanRainbowWave', 15, -1) // start animation
