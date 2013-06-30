@@ -23,23 +23,14 @@ if (Meteor.isClient) {
       });
     }
   });
-
-
 }
 
 
 if (Meteor.isServer) {
 
-  Meteor.startup(function () {  
-    for (var key in Models ) {
-      type = key;
-      for (model in Models[type]) {
-        Gamezar.Models.add(type, model, Models[type][model]) {
-          
-        }
-      }
-    }
-
+  Meteor.startup(function() {  
+    Gamezar.build();
+    
   });
 
 }

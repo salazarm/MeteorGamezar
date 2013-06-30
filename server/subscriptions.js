@@ -50,21 +50,15 @@ Meteor.methods({
     }
   },
 
-
   subscribeToMap: function(mapId) {
     user = Meteor.users.findOne(Meteor.userId());
     if ( user['currentCharacter'] ) {
-
       var currentMap = Maps.findOne(Characters.findOne( user['currentCharacter']._id)['currentMap']);
       /*
         Validations on whether character can switch to this map go here.
       */
       Session.set("currentMapId" : currentMapId );
-
-      return 
     } else {
-      console.log("Error: No character logged in!");
-      alert("Error: No character selected!");
       /*
         Temporary solution, go back to character selection screen instead.
       */ 
