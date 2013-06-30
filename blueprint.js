@@ -18,7 +18,7 @@ Units['poke_professor'] = {
 		stamina: 100,
 		speed: 2
 	},
-	spriteUrl : "/pokemon.png",
+	spriteUrl : "/images/pokemon.png",
 	sprite_position: [0, 3],
 	animations: {
 		['walk_left', 6, 3, 8],
@@ -30,43 +30,64 @@ Units['poke_professor'] = {
 
 Maps['world'] = {
 	name: "World Map",
-	tilesUrl: "/images/pokemon.png",
+	tilesUrl: "/images/pokemon.png"
   tiles : {
-  	'grass1' : [ 0, 1 ], 
-  	'grass2' : [ 1, 0 ], 
-  	'grass3' : [ 2, 0 ], 
-  	'grass4' : [ 3, 0 ], 
-  	'flower' : [ 0, 1 ], 
-  	'bush1' : [ 0, 2 ], 
-  	'bush2' : [ 1, 2 ]
+  	'grass1' : {
+  		position: [ 0, 1 ],
+  		sturdy: false
+  	} 
+  	'grass2' : {
+  		position: [ 0, 1 ],
+  		sturdy: false
+  	}  
+  	'grass3' : {
+  		position: [ 2, 0 ],
+  		sturdy: false
+  	}, 
+  	'grass4' : {
+  		position: [ 3, 0 ],
+  		sturdy: false 
+  	}
+  	'flower' : {
+  		position: [ 0, 1 ],
+  		sturdy: false
+		} 
+  	'bush1' : {
+  		position: [ 0, 2 ],
+  		sturdy: true,
+		} 
+  	'bush2' : {
+  		position: [ 1, 2 ],
+  		sturdy: true,
+  	}
   },
   actions : [],
   portals: ['portal_1', 'portal_2'],
   map : [ 
-  	[ 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1' ],
-  	[ 'bush1', 'grass1', 'grass4', 'grass1', 'grass3', 'grass1', 'grass3', 'grass3', 'grass1', 'grass2', 'grass3', 'grass1', 'grass2' 'grass3', 'bush2'],
-  	[ 'bush2', 'grass2', 'grass1', 'grass4', 'grass2', 'grass3', 'grass1', 'grass2', 'grass4', 'grass3', 'grass1', 'grass2', 'grass2', 'grass2', 'bush1'],
-  	[ 'bush1', 'grass1', 'grass4', 'grass1', 'grass3', 'grass1', 'grass3', 'grass3', 'grass1', 'grass2', 'grass3', 'grass1', 'grass2' 'grass3', 'bush2'],
-  	[ 'bush2', 'grass2', 'grass1', 'grass4', 'grass2', 'grass3', 'grass1', 'grass2', 'grass4', 'grass3', 'grass1', 'grass2', 'grass2', 'grass2', 'bush1'],
-  	[ 'bush1', 'grass1', 'grass4', 'grass1', 'grass3', 'grass1', 'grass3', 'grass3', 'grass1', 'grass2', 'grass3', 'grass1', 'grass2' 'grass3', 'bush2'],
-  	[ 'bush2', 'grass2', 'grass1', 'grass4', 'grass2', 'grass3', 'grass1', 'grass2', 'grass4', 'grass3', 'grass1', 'grass2', 'grass2', 'grass2', 'bush1'],
-  	[ 'bush1', 'grass1', 'grass4', 'grass1', 'grass3', 'grass1', 'grass3', 'grass3', 'grass1', 'grass2', 'grass3', 'grass1', 'grass2' 'grass3', 'bush2'],
-  	[ 'bush2', 'grass2', 'grass1', 'grass4', 'grass2', 'grass3', 'grass1', 'grass2', 'grass4', 'grass3', 'grass1', 'grass2', 'grass2', 'grass2', 'bush1'],
-  	[ 'bush1', 'grass1', 'grass4', 'grass1', 'grass3', 'grass1', 'grass3', 'grass3', 'grass1', 'grass2', 'grass3', 'grass1', 'grass2' 'grass3', 'bush2'],
-  	[ 'bush2', 'grass2', 'grass1', 'grass4', 'grass2', 'grass3', 'grass1', 'grass2', 'grass4', 'grass3', 'grass1', 'grass2', 'grass2', 'grass2', 'bush1'],
-  	[ 'bush1', 'grass1', 'grass4', 'grass1', 'grass3', 'grass1', 'grass3', 'grass3', 'grass1', 'grass2', 'grass3', 'grass1', 'grass2' 'grass3', 'bush2'],
-  	[ 'bush2', 'grass2', 'grass1', 'grass4', 'grass2', 'grass3', 'grass1', 'grass2', 'grass4', 'grass3', 'grass1', 'grass2', 'grass2', 'grass2', 'bush1'],
-  	[ 'bush1', 'grass1', 'grass4', 'grass1', 'grass3', 'grass1', 'grass3', 'grass3', 'grass1', 'grass2', 'grass3', 'grass1', 'grass2' 'grass3', 'bush2'],
-  	[ 'bush2', 'grass2', 'grass1', 'grass4', 'grass2', 'grass3', 'grass1', 'grass2', 'grass4', 'grass3', 'grass1', 'grass2', 'grass2', 'grass2', 'bush1'],
-  	[ 'bush1', 'grass1', 'grass4', 'grass1', 'grass3', 'grass1', 'grass3', 'grass3', 'grass1', 'grass2', 'grass3', 'grass1', 'grass2' 'grass3', 'bush2'],
-  	[ 'bush2', 'grass2', 'grass1', 'grass4', 'grass2', 'grass3', 'grass1', 'grass2', 'grass4', 'grass3', 'grass1', 'grass2', 'grass2', 'grass2', 'bush1'],
-  	[ 'bush1', 'grass1', 'grass4', 'grass1', 'grass3', 'grass1', 'grass3', 'grass3', 'grass1', 'grass2', 'grass3', 'grass1', 'grass2' 'grass3', 'bush2'],
-  	[ 'bush2', 'grass2', 'grass1', 'grass4', 'grass2', 'grass3', 'grass1', 'grass2', 'grass4', 'grass3', 'grass1', 'grass2', 'grass2', 'grass2', 'bush1'],
-  	[ 'bush1', 'grass1', 'grass4', 'grass1', 'grass3', 'grass1', 'grass3', 'grass3', 'grass1', 'grass2', 'grass3', 'grass1', 'grass2' 'grass3', 'bush2'],
-  	[ 'bush2', 'grass2', 'grass1', 'grass4', 'grass2', 'grass3', 'grass1', 'grass2', 'grass4', 'grass3', 'grass1', 'grass2', 'grass2', 'grass2', 'bush1'],
-  	[ 'bush1', 'grass1', 'grass4', 'grass1', 'grass3', 'grass1', 'grass3', 'grass3', 'grass1', 'grass2', 'grass3', 'grass1', 'grass2' 'grass3', 'bush2'],
-  	[ 'bush2', 'grass2', 'grass1', 'grass4', 'grass2', 'grass3', 'grass1', 'grass2', 'grass4', 'grass3', 'grass1', 'grass2', 'grass2', 'grass2', 'bush1'],
-  	[ 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1' ],
+  	[ ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1' ] ],
+  	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
+  	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
+  	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush1'], ['grass1', 'flower'], ['grass4', 'flower'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
+  	[ ['bush2'], ['grass2', 'flower', 'flower'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
+  	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
+  	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
+  	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
+  	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
+  	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
+  	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
+  	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
+  	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1'], ['bush1' ] ],
   ]
 }
 Maps['nyanSpace'] = {
@@ -110,22 +131,8 @@ Portals['portal_2'] = {
 	to: 'portal_1'
 }
 
-Portals['world2nyan'] = {
-	active: false,
-	map: 'world',
-	position : {
-		x: 30,
-		y: 30
-	},
-	to: 'nyan2world'
-}
-
-Portals['nyan2world'] = {
-	active: false,
-	map: 'nyan_space',
-	position : {
-		x: 30,
-		y: 30
-	},
-	to: 'world2nyan
+Models = {
+	Portals: Portals,
+	Units: Units,
+	Maps: Maps
 }

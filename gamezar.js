@@ -59,5 +59,14 @@ var Gamezar =  new (function() {
     return this.newModel[type];
   }
 
+  this.build = function() {
+    for (var key in Models ) {
+      type = key;
+      for (model in Models[type]) {
+        Gamezar.Models.add(type, model, Models[type][model]) 
+      }
+    }
+  }
+
   return this;
 })();
