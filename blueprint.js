@@ -30,7 +30,9 @@ Units['poke_professor'] = {
 
 Maps['world'] = {
 	name: "World Map",
-	tilesUrl: "/images/pokemon.png"
+	monsters: [],
+	users: [],
+	tilesUrl: "/images/pokemon.png",
   tiles : {
   	'grass1' : {
   		position: [ 0, 1 ],
@@ -70,7 +72,7 @@ Maps['world'] = {
   	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
   	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
   	[ ['bush1'], ['grass1', 'flower'], ['grass4', 'flower'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
-  	[ ['bush2'], ['grass2', 'flower', 'flower'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
+  	[ ['bush2'], ['grass2', 'flower'], ['grass1', 'flower'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
   	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],
   	[ ['bush2'], ['grass2'], ['grass1'], ['grass4'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass4'], ['grass3'], ['grass1'], ['grass2'], ['grass2'], ['grass2'], ['bush1'] ],
   	[ ['bush1'], ['grass1'], ['grass4'], ['grass1'], ['grass3'], ['grass1'], ['grass3'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['grass1'], ['grass2'], ['grass3'], ['bush2'] ],

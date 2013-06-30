@@ -27,10 +27,11 @@ if (Meteor.isClient) {
 
 
 if (Meteor.isServer) {
-
   Meteor.startup(function() {  
     Gamezar.build();
-    
+    if (Maps.find().fetch().length == 0) {
+      Maps.insert(Gamezar.Models.get('Maps', 'world'));
+    }
   });
 
 }

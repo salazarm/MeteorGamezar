@@ -1,4 +1,4 @@
-var Map = function(){
+var Map = function() {
 	if( !(this instanceof Map) ) {
 		return new Map(params);
 	}
@@ -46,10 +46,3 @@ var Map = function(){
 		}
 	}
 }
-
-instantiateMap(id) {
-
-}
-
-
-Meteor.update( current_user.character { position: })
