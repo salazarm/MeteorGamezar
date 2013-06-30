@@ -30,7 +30,7 @@ Units['poke_professor'] = {
 
 Maps['world'] = {
 	name: "World Map",
-	tilesUrl: "/pokemon.png"
+	tilesUrl: "/images/pokemon.png",
   tiles : {
   	'grass1' : [ 0, 1 ], 
   	'grass2' : [ 1, 0 ], 
@@ -69,6 +69,26 @@ Maps['world'] = {
   	[ 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1', 'bush1' ],
   ]
 }
+Maps['nyanSpace'] = {
+  name: "Nyan Space",
+  tilesUrl: "/images/nyan_space.png",
+  tiles: {
+  },
+  actions: [],
+  portals: ['nyan2world'],
+  map: []
+}
+for (var i = 0; i < 67; i++) {
+  Maps['nyanSpace']['map'].push([]);
+  for (var j = 0; j < 120; j++) {
+    if ((i + j) % 7 === 0) {
+      Maps['nyanSpace']['map'][i].push(['nyanStar']);
+    }
+    else {
+      Maps['nyanSpace']['map'][i].push(['nyanEmpty']);
+    }
+  }
+}
 
 Portals['portal_1'] = {
 	active: true,
@@ -88,4 +108,24 @@ Portals['portal_2'] = {
 		y: 10
 	},
 	to: 'portal_1'
+}
+
+Portals['world2nyan'] = {
+	active: false,
+	map: 'world',
+	position : {
+		x: 30,
+		y: 30
+	},
+	to: 'nyan2world'
+}
+
+Portals['nyan2world'] = {
+	active: false,
+	map: 'nyan_space',
+	position : {
+		x: 30,
+		y: 30
+	},
+	to: 'world2nyan
 }

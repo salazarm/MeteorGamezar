@@ -1,19 +1,15 @@
-var Map = function(){
+var Map = function(mapDoc){
 	if( !(this instanceof Map) ) {
-		return new Map(params);
+		return new Map(mapDoc);
 	}
 
-	overmap = []
 
-	spriteSheet = params[sprite_url];
-	tiles = params[tiles];
-	map = params[map]; [[ "grass", "rock"],
-											[ "grass", "road1"]]
+	tileSheet = mapDoc.tileSheet;
+	grids = mapDoc.grids;	
 
-	sturdyTiles = params[sturdyTiles];
 
 	function loadSprites() {
-		Craft.sprite(8, spriteSheet, tiles);
+		Crafty.sprite(8, tileSheet, tiles);
 	}
 
 	return {
@@ -47,9 +43,7 @@ var Map = function(){
 	}
 }
 
-instantiateMap(id) {
-
-}
-
-
-Meteor.update( current_user.character { position: })
+var map1 = new Map({
+  tileSheet: '/images/dungeonTiles.png',
+});
+map1.generateMap()
