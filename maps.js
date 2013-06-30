@@ -16,12 +16,12 @@ Map = function(mapDoc) {
 	tileToCraftyTile = {}
 
 	function checkForPortal(x,y) {
-		for(var i=0; i<portals.length; i++) {
-			portal = Models['Portals'][portals[i]];
-			if (Math.abs(portal.position.x - x)<64 && Math.abs(portal.position.y - y)<64 ) {
-				return portals[i];
-			}
-		}
+		// for(var i=0; i<portals.length; i++) {
+		// 	portal = Models['Portals'][portals[i]];
+		// 	if (Math.abs(portal.position.x - x)<64 && Math.abs(portal.position.y - y)<64 ) {
+		// 		return portals[i];
+		// 	}
+		// }
 		return false;
 	}
 
