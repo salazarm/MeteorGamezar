@@ -4,7 +4,8 @@ var Actions = {
 }
 
 var move = function(character, params) {
-	_character = Map.moveChar(character, params['direction']);
+	characterInstance = Gamezar.instantiate('unit', character);
+	_character = Map.moveChar(characterInstance, params['direction']);
 	if ( !isEmptyObject( _character ) ) {
 		Units.update({ _id: _character._id }, { $set : _character });
 		return _character;
@@ -13,8 +14,9 @@ var move = function(character, params) {
 }
 
 var attack = function(character) {
-	 units = Map.attack(character);
-	 if ( !isEmptyObject( units ) ) {
+	characterInstance = Gamezar.instantiate('unit', character);
+	units = Map.attack(characterInstance);
+	if ( !isEmptyObject( units ) ) {
 	 	for (var i=0; i< units.length; i++) {
 	 		Units.update({ _id: units[i]._id }, { $set : { units[i] } } );
 	 	}

@@ -3,10 +3,17 @@ Meteor.methods({
     return Users.findOne( Meteor.userId() );
   },
 
+  /*
+    Get my characters
+  */
   getCharacters : function() {
     return Characters.find({ ownerId: Meteor.userId() }).fetch();
   },
 
+  /*
+    Picking a character returns both the character and the map that
+    the character is in.
+  */
   pickCharacter: function(selection) {
     var character;
     if( !Meteor.userId() ) {
@@ -43,31 +50,18 @@ Meteor.methods({
     }
   },
 
+
   subscribeToMap: function(mapId) {
-    if ( session.get('character') ) {
-      Meteor.publish('currentMap', function() {
-        var sub = this,
-          actionHandle = null,
-          chractrHandle = null
+    user = Meteor.users.findOne(Meteor.userId());
+    if ( user['currentCharacter'] ) {
 
-        function publishMap(map) {
-          var actions = Actions.find({mapID: map._id});
-          actionHandle = actions.observer({
-            added: function(id, action) {
-              sub.added('action', id, action);
-            }
-          });
-        }
+      var currentMap = Maps.findOne(Characters.findOne( user['currentCharacter']._id)['currentMap']);
+      /*
+        Validations on whether character can switch to this map go here.
+      */
+      Session.set("currentMapId" : currentMapId );
 
-        characterHandle = Characters.find({_id: session.get('character')._id, ownerId: Meteor.userId() } ).observe({
-          changed: function(collection, id, fields) {
-            if ( fields['loggedIn'] ) {
-              Meteor.call("characterLogout");
-            }
-          }
-        });
-
-      });
+      return 
     } else {
       console.log("Error: No character logged in!");
       alert("Error: No character selected!");
