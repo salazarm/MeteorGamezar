@@ -1,24 +1,28 @@
-var Actions = {
+UnitActions = {
 	'move' :   move,
 	'attack' : attack
 }
 
-var move = function(character, params) {
-	characterInstance = Gamezar.instantiate('unit', character);
-	_character = Map.moveChar(characterInstance, params['direction']);
-	if ( !isEmptyObject( _character ) ) {
-		Units.update({ _id: _character._id }, { $set : _character });
-		return _character;
-	}
-	return null;
+function move(character, params) {
+	Actions.insert({
+		 user_id: character._id, 
+  	 map: character.world,
+  	 type: 0,
+  	 direction: params['direction']
+  });
+  console.log(params['direction']);
+  x = character.position.x += character.stats.speed * params['direction'][0];
+  y = character.position.y -= character.stats.speed * params['direction'][1];
+	Units.update({ _id: character._id }, { $set : { position : { x: x, y: y } } });
 }
 
-var attack = function(character) {
-	characterInstance = Gamezar.instantiate('unit', character);
-	units = Map.attack(characterInstance);
+function attack(character) {
+	// characterInstance = Gamezar.instantiate('unit', character);
+	mapDoc = Maps.findOne(character.world);
+	units = (new Map(mapDoc)).attack(character);
 	if ( !isEmptyObject( units ) ) {
 	 	for (var i=0; i< units.length; i++) {
-	 		Units.update({ _id: units[i]._id }, { $set : { units[i] } } );
+	 		Units.update({ _id: units[i]._id }, { $set :  units[i] } );
 	 	}
 	 	return units;
   }

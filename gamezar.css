@@ -1,1 +1,94 @@
 /* CSS declarations go here */
+
+input {
+	padding: 19px 12px 15px;
+	border: none;
+	background: transparent;
+	width: 600px;
+	border: none;
+	background: transparent;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	outline: 0 none;
+	margin: 0;
+	-webkit-appearance: textfield;
+	-webkit-rtl-ordering: logical;
+	-webkit-user-select: text;
+	font: -webkit-small-control;
+	color: initial;
+	-webkit-writing-mode: horizontal-tb;
+	letter-spacing: normal;
+	word-spacing: normal;
+	text-transform: none;
+	text-indent: 0px;
+	text-shadow: none;
+	display: inline-block;
+	text-align: start;
+	cursor: auto;
+	border: 1px solid #888;
+	font-size: 18px;
+}
+
+.hidden {
+	display: none;
+}
+
+.login-link-text {
+	display: block;
+	margin: 20px;
+}
+
+html, body {
+	background-color: #fefefe;
+	font-family: 'Lato', sans-serif;
+	margin: 1%;
+}
+
+h2 {
+	line-height: 30px;
+}
+
+.name {
+	text-align: center;
+	cursor: pointer;
+	display: inline-block;
+	background-color: #882211;
+	color: #fff;
+	padding: 5px 20px;
+	border-radius: 5px;
+  -webkit-transition: all 0.05s ease;                  
+  -moz-transition: all 0.05s ease;                 
+  -o-transition: all 0.05s ease;   
+  -ms-transition: all 0.05s ease;          
+  transition: all 0.05s ease;
+}
+.name:hover {
+	padding: 5px 50px;
+	background-color: #444;
+	color: #fff;
+  -webkit-transition: all 0.05s ease;                  
+  -moz-transition: all 0.05s ease;                 
+  -o-transition: all 0.05s ease;   
+  -ms-transition: all 0.05s ease;          
+  transition: all 0.05s ease;
+}
+
+.selectable-character {
+	margin: 5px 10px;
+	float: left;
+}
+
+#select-character {
+	clear: both;
+}
+.clear {
+	clear: both;
+}
+#chars {
+	margin-top: 30px;
+}
+
+#new {
+	margin-top: 20px;
+}

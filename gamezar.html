@@ -1,12 +1,26 @@
 <head>
-  <title>gamezar</title>
+  <title>gamezadaasdasdr</title>
+  	<link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
 	{{loginButtons}}
-  {{#if loggedIn}}
-		<div id="game">
+	<div id="chars" class="hidden">
+		<div id="select-character">
+		</div>
 
-		</div>	
-  {{/if}}
+		<div data-type="new" id="new">
+			<input type="text" placeholder="New character name"></input>
+		</div>
+	</div>	
+
+	<script type="text/template" id="character-template">
+		<div class="selectable-character">
+			<div class="name" data-character-id="<%= _id %>">
+				<%= name %><br>
+				 Health: <%= stats['health'] %><br>
+				 Strength: <%= stats['strength'] %><br>
+			</div>
+		</div>
+	</script>
 </body>

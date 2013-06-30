@@ -1,12 +1,12 @@
-var Gamezar =  new (function() {
+Gamezar =  new (function() {
   models = {}
   animations = {}
   events = {}
+  newModel = {}
 
   this.Models = {}
   this.Animations = {}
   this.Events = {}
-  this.newModel = {}
   this.interfaces = {}
 
   this.Models.add = function(type, name, model) {
@@ -49,20 +49,21 @@ var Gamezar =  new (function() {
 
   this.Models.setNewModel = function(type, name, real) {
     if (real) {
-      this.newModel[type] = this.models[real][name];
+      newModel[type] = models[real][name];
     } else { 
-      this.newModel[type] = this.Models[type][name];
+      newModel[type] = models[type][name];
     }
   }
 
   this.Models.new = function(type) {
-    return this.newModel[type];
+    return newModel[type];
   }
 
   this.build = function() {
     for (var key in Models ) {
       type = key;
       for (model in Models[type]) {
+        Models[type][model]['_name'] = model;
         Gamezar.Models.add(type, model, Models[type][model]) 
       }
     }

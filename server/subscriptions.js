@@ -1,13 +1,26 @@
 Meteor.methods({
+
+  logoutCharacter: function() {
+    user = Meteor.user();
+    if ( user.currentCharacter ) {
+      character = Units.findOne( user.currentCharacter );
+      Maps.update({ _id : character.world }, { $pull : { users : { _id : character._id } } } );
+      Units.update({ _id: user.currentCharacter }, { $set : {loggedIn: false } });
+      Meteor.users.update({ _id: user._id}, { $set : { currentCharacter: null } });
+    }
+  },
+
   getSelf : function() {
-    return Users.findOne( Meteor.userId() );
+    if (Meteor.userId())
+      return Users.findOne( Meteor.userId() );
+    return null
   },
 
   /*
     Get my characters
   */
   getCharacters : function() {
-    return Characters.find({ ownerId: Meteor.userId() }).fetch();
+    return Units.find({ ownerId: Meteor.userId() }).fetch();
   },
 
   /*
@@ -20,13 +33,13 @@ Meteor.methods({
       throw new Meteor.Error(403, "Must be logged in to play");
     } 
     if ( selection['characterId'] ) {
-      character = Characters.findOne( selection['characterId'] );
+      character = Units.findOne( selection['characterId'] );
       if ( ( character.ownerId == Meteor.userId() ) ) {
         if ( character.loggedIn ) {
           throw new Meteor.Error(403, "The Character is already logged in");
         } else {
-          Characters.update( {_id: characterId}, { $set: { loggedIn: true } } );
-          Users.update( {_id: Meteor.userId() }, { $set: { currentCharacter: characterId } } );
+          Units.update( {_id: selection['characterId']}, { $set: { loggedIn: true } } );
+          Meteor.users.update( {_id: Meteor.userId() }, { $set: { currentCharacter: selection['characterId'] } } );
         }
       } else {
         throw new Meteor.Error(403, 'Cannot select a character that does not belong to you');
@@ -35,15 +48,34 @@ Meteor.methods({
       if ( !selection['name'] ) {
         throw new Meteor.Error(500, 'Must give a name for your new character');
       } else {
+
         characterTemplate = Gamezar.Models.new("character");
-        characterTemplate[ownerId] = Meteor.userId();
-        characterTemplate[name] = selection['name'];
-        var charId = Characters.insert( characterTemplate );
-        character = Characters.findOne(charId);
-        Users.update( {_id: Meteor.userId(), { $set: { currentCharacter: charId } } } );
+        _.extend(characterTemplate, Models['Units']['base']);
+        characterTemplate['ownerId'] = Meteor.userId();
+        characterTemplate['name'] = selection['name'];
+
+        var charId = Units.insert( characterTemplate );
+        character = Units.findOne(charId) ;
+
+        Units.update( { _id: Meteor.userId() }, { $set : { currentCharacter: charId } } );
+        Meteor.users.update( { _id: Meteor.userId() }, { $set: { currentCharacter: charId } } );
       }
     }
-    map = Maps.findOne({ _id: character['currentMap'] });
+
+
+    Maps.update( {_id : character.world}, { $push : { users : Units.findOne( Meteor.user().currentCharacter ) } });
+    map = Maps.findOne({ _id:  character.world });
+
+    if (map.instantated) {
+      portals = Portals.find({ _id: { $in : map.portals } });
+    } else {
+      portal_map_ids = [];
+      for ( var i=0; i< map.portals.length; i++ ) {
+        portal = map.portals[i];
+        Gamezar.Models.get('Portals', portal);
+      }
+    }
+
     return { 
       'character' : character, 
       'map' : map 
@@ -53,11 +85,11 @@ Meteor.methods({
   subscribeToMap: function(mapId) {
     user = Meteor.users.findOne(Meteor.userId());
     if ( user['currentCharacter'] ) {
-      var currentMap = Maps.findOne(Characters.findOne( user['currentCharacter']._id)['currentMap']);
+      var currentMap = Maps.findOne(Units.findOne( user['currentCharacter']._id)['currentMap']);
       /*
         Validations on whether character can switch to this map go here.
       */
-      Session.set("currentMapId" : currentMapId );
+      Session.set("currentMapId", currentMapId );
     } else {
       /*
         Temporary solution, go back to character selection screen instead.
@@ -68,9 +100,9 @@ Meteor.methods({
 
   commitAction: function(action, params) {
     user = Meteor.users.findOne(Meteor.userId());
-    character = Characters.findOne(user['currentCharacter']);
-    if (Actions[action]) {
-      return Actions[action](character, params);
+    character = Units.findOne(user['currentCharacter']);
+    if (UnitActions[action]) {
+      return UnitActions[action](character, params);
     } else {
       throw new Meteor.Error(403, "Action unrecognized");
     }
