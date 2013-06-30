@@ -1,4 +1,4 @@
-Game = (function() {
+Game = new (function() {
 	craftyMap = null;
 	character = null;
 	allies = {};
@@ -30,6 +30,7 @@ Game = (function() {
 		  console.log(response);
 		
 		  character = response.character;
+		  this.character = character;
 		  map = response.map;
 
 		  craftyMap = new Map(map);
@@ -54,11 +55,16 @@ Game = (function() {
 	    		craftyMap.addUnit(unit);
 	    		craftyMap.generateMap(character);
 	    	},
+	    	changed: function(unit) {
+
+	    	},
+
 	    	removed: function(unit) {
 	    		craftyMap.removeUnit(unit);
 	    		craftyMap.generateMap(character);
 	    	}
-	    })
+	    });
+
 			Actions.find().observe({
 				added: function(action) {
 					if (action.user_id != character._id) {

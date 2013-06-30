@@ -1,4 +1,5 @@
 Meteor.publish('currentMap', function() {
+  cons
   currentMap = Maps.findOne( Units.findOne(Meteor.users.findOne(this.userId).currentCharacter).world );
   currentMapId = currentMap._id;
   console.log("Got subscriber");

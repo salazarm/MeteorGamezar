@@ -15,6 +15,16 @@ Map = function(mapDoc) {
 
 	tileToCraftyTile = {}
 
+	function checkForPortal(x,y) {
+		for(var i=0; i<portals.length; i++) {
+			portal = Models['Portals'][portals[i]];
+			if (Math.abs(portal.position.x - x)<64 && Math.abs(portal.position.y - y)<64 ) {
+				return portals[i];
+			}
+		}
+		return false;
+	}
+
 	function loadSprites() {
 		i = 0;
 		if ( Meteor.isClient ) {
@@ -82,12 +92,14 @@ Map = function(mapDoc) {
 								if(speed) this._speed = speed;
 								var move = this.__move;
 								
+								portalCheck = checkForPortal;
 								this.bind('enterframe', function() {
 									self = this;
 									//move the player in a direction depending on the booleans
 									//only move the player in one direction at a time (up/down/left/right)
 									if(this.isDown("RIGHT_ARROW")) {
 										x = this.x += this._speed;
+										if( checkForPortal)
 										Meteor.call('commitAction', 'move', {
 											direction : [1, 0], simulated: this.x
 										});
@@ -110,6 +122,15 @@ Map = function(mapDoc) {
 											direction : [0, -1], simulated: this.y
 										});
 									}
+									portal = portalCheck(this.x, this.y);
+									if ( portal ) {
+										console.log("OMG A PORTAL");
+										console.log(portal);
+										Meteor.call('takePortal', portal, function(error, map) {
+											Game.load(error, {map: map, character: Game.character });
+										});
+									}
+
 								});
 								
 								return this;

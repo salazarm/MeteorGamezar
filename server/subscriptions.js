@@ -66,16 +66,6 @@ Meteor.methods({
     Maps.update( {_id : character.world}, { $push : { users : Units.findOne( Meteor.user().currentCharacter ) } });
     map = Maps.findOne({ _id:  character.world });
 
-    if (map.instantated) {
-      portals = Portals.find({ _id: { $in : map.portals } });
-    } else {
-      portal_map_ids = [];
-      for ( var i=0; i< map.portals.length; i++ ) {
-        portal = map.portals[i];
-        Gamezar.Models.get('Portals', portal);
-      }
-    }
-
     return { 
       'character' : character, 
       'map' : map 
@@ -106,6 +96,11 @@ Meteor.methods({
     } else {
       throw new Meteor.Error(403, "Action unrecognized");
     }
-  }
+  },
 
+  takePortal: function(portal) {
+    user = Meteor.users.findOne(Meteor.userId());
+    Units.update({_id: user.currentCharacter},{ $set : { world : Models['Portals'][portal]['map'] } });
+    return Maps.findOne(  Models['Portals'][portal]['map'] );
+  }
 });
